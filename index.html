@@ -2,16 +2,24 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="style.css">
     <title>Code Quiz</title>
     <style>
         #quiz-container {
             text-align: center;
         }
+        
+        #timer {
+            font-size: 20px;
+            margin-bottom: 10px;
+        }
     </style>
 </head>
 <body>
+    <p>High Score: <span id="high-score">0</span></p>
     <div id="quiz-container">
         <h1>Code Quiz</h1>
+        <div id="timer">Time: 60 seconds</div>
         <div id="question"></div>
         <ul id="options"></ul>
         <button id="start-button">Start</button>

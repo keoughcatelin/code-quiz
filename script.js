@@ -31,6 +31,7 @@ const quizQuestions = [
 let currentQuestion = 0;
 let time = 60;
 let timerInterval;
+let highScore = 0;
 
 // Elements
 const startButton = document.getElementById("start-button");
@@ -38,6 +39,7 @@ const questionElement = document.getElementById("question");
 const optionsElement = document.getElementById("options");
 const submitButton = document.getElementById("submit-button");
 const initialsInput = document.getElementById("initials");
+const timer = document.getElementById("timer");
 
 // Start quiz
 startButton.addEventListener("click", startQuiz);
@@ -45,8 +47,10 @@ startButton.addEventListener("click", startQuiz);
 // Make start button work
 function startQuiz() {
     startButton.style.display = "none";
+    initialsInput.style.display = "none";
     timerInterval = setInterval(updateTimer, 1000);
     displayQuestion();
+    displayHighScore();
 }
 
 // Make questions work
@@ -56,10 +60,12 @@ function displayQuestion() {
     optionsElement.innerHTML = "";
 
     for (let i = 0; i < currentQuizData.options.length; i++) {
-        const option = document.createElement("li");
+        const item = document.createElement("li");
+        const option = document.createElement("button");
         option.textContent = currentQuizData.options[i];
         option.dataset.index = i;
         option.addEventListener("click", () => checkAnswer(parseInt(option.dataset.index)));
+        item.appendChild(option);
         optionsElement.appendChild(option);
     }
 }
@@ -89,15 +95,34 @@ function updateTimer() {
     if (time <= 0) {
         endQuiz();
     }
+    timer.textContent = time;
 }
 
 // End quiz
 function endQuiz() {
     clearInterval(timerInterval);
+    timer.style.display = 'none';
     questionElement.innerText = "Completed!";
     optionsElement.innerHTML = "";
     initialsInput.style.display = "block";
     submitButton.style.display = "block";
+    localStorage.setItem("highScore", highScore.toString());
+
+    // Attach event listener to submit button
+    submitButton.addEventListener("click", saveScore);
+}
+
+//displays high score
+function displayHighScore() {
+    // Retrieve the high score from storage (e.g., localStorage) if available
+    const storedHighScore = localStorage.getItem("highScore");
+    if (storedHighScore) {
+        highScore = parseInt(storedHighScore);
+    }
+
+    // Display the high score on the page
+    const highScoreElement = document.getElementById("high-score");
+    highScoreElement.textContent = highScore.toString();
 }
 
 // Save score and initials
@@ -108,4 +133,9 @@ function saveScore() {
     // Save the initials and score to a data structure
     console.log("Initials: ", initials);
     console.log("Score: ", time);
+
+    if (time > highScore) {
+        highScore = time;
+        console.log("New High Score: ", highScore);
+    }
 }
