@@ -25,7 +25,13 @@
         <button id="start-button">Start</button>
         <input type="text" id="initials" placeholder="Please Enter Your Initials">
         <button id="submit-button" style="display: none;">Submit</button>
+        <button id="highscores-button" onclick="goToHighScoresPage()">High Scores</button>
     </div>
     <script src="script.js"></script>
+    <script>
+        function goToHighScoresPage() {
+        window.location.href = "highscores.html";
+        }
+        </script>
 </body>
 </html>

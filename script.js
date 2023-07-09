@@ -1,31 +1,32 @@
 // Question section
 const quizQuestions = [
     {
-        question: "Question 1",
-        options: ["A", "B", "C", "D"],
-        answer: 0
+    question: "Question 1: What does CSS stand for?",
+    options: ["Cascading Style Sheets", "Creative Style Sheets", "Computer Style Sheets", "Colorful Style Sheets"],
+    answer: 0,
     },
     {
-        question: "Question 2",
-        options: ["A", "B", "C", "D"],
-        answer: 3
+    question: "Question 2: Which of the following is NOT a valid JavaScript data type?",
+    options: ["String", "Boolean", "Number", "Float"],
+    answer: 3,
     },
     {
-        question: "Question 3",
-        options: ["A", "B", "C", "D"],
-        answer: 1
+    question: "Question 3: What is the correct way to write an array in JavaScript?",
+    options: ["var colors = 'red', 'blue', 'green';", "var colors = ['red', 'blue', 'green'];", "var colors = 'red'; 'blue'; 'green';", "var colors = { 'red', 'blue', 'green' };"],
+    answer: 1,
     },
     {
-        question: "Question 4",
-        options: ["A", "B", "C", "D"],
-        answer: 0
+    question: "Question 4: What does HTML stand for?",
+    options: ["Hyperlink Text Markup Language", "Hyper Text Markup Language", "Home Tool Markup Language", "Hyperlinks and Text Markup Language"],
+    answer: 1,
     },
     {
-        question: "Question 5",
-        options: ["A", "B", "C", "D"],
-        answer: 2
+    question: "Question 5: What does the 'console.log()' function do in JavaScript?",
+    options: ["Displays a message in the console", "Performs mathematical calculations", "Creates an alert box", "Changes the HTML content of an element"],
+    answer: 0,
     },
 ];
+
 
 // Variables
 let currentQuestion = 0;
@@ -50,7 +51,6 @@ function startQuiz() {
     initialsInput.style.display = "none";
     timerInterval = setInterval(updateTimer, 1000);
     displayQuestion();
-    displayHighScore();
 }
 
 // Make questions work
@@ -101,28 +101,11 @@ function updateTimer() {
 // End quiz
 function endQuiz() {
     clearInterval(timerInterval);
-    timer.style.display = 'none';
+    timer.style.display = "none";
     questionElement.innerText = "Completed!";
     optionsElement.innerHTML = "";
     initialsInput.style.display = "block";
     submitButton.style.display = "block";
-    localStorage.setItem("highScore", highScore.toString());
-
-    // Attach event listener to submit button
-    submitButton.addEventListener("click", saveScore);
-}
-
-//displays high score
-function displayHighScore() {
-    // Retrieve the high score from storage (e.g., localStorage) if available
-    const storedHighScore = localStorage.getItem("highScore");
-    if (storedHighScore) {
-        highScore = parseInt(storedHighScore);
-    }
-
-    // Display the high score on the page
-    const highScoreElement = document.getElementById("high-score");
-    highScoreElement.textContent = highScore.toString();
 }
 
 // Save score and initials
@@ -130,12 +113,10 @@ submitButton.addEventListener("click", saveScore);
 
 function saveScore() {
     const initials = initialsInput.value;
-    // Save the initials and score to a data structure
-    console.log("Initials: ", initials);
-    console.log("Score: ", time);
-
-    if (time > highScore) {
-        highScore = time;
-        console.log("New High Score: ", highScore);
-    }
+    const scoreData = { initials: initials, score: time };
+    highScores.push(scoreData);
+    localStorage.setItem("highScores", JSON.stringify(highScores));
+    window.location.href = "highscores.html";
 }
+
+
