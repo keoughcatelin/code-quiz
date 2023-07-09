@@ -32,7 +32,7 @@ const quizQuestions = [
 let currentQuestion = 0;
 let time = 60;
 let timerInterval;
-let highScore = 0;
+let highscores = 0;
 
 // Elements
 const startButton = document.getElementById("start-button");
