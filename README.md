@@ -7,6 +7,9 @@ The Quiz App is a web application that allows users to take a quiz and test thei
 ![Alt text](image-1.png)
 ![Alt text](image-2.png)
 
+## link to site
+https://keoughcatelin.github.io/code-quiz/ 
+
 ## Features
 
 - Multiple-choice questions with options
